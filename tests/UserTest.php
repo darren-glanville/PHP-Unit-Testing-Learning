@@ -4,10 +4,7 @@ use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function returns_full_name()
+    public function testReturnsFullName()
     {
         $user = new User();
         $user->first_name = "Bob";
@@ -16,10 +13,7 @@ class UserTest extends TestCase
         $this->assertEquals("Bob Builder", $user->getFullName());
     }
 
-    /**
-     * @test
-     */
-    public function returns_empty_string()
+    public function testReturnsEmptyString()
     {
         $user = new User();
 
@@ -32,7 +26,9 @@ class UserTest extends TestCase
 
         $mock = $this->createMock(Mailer::class);
 
-        $mock->method("sendMessage")
+        $mock->expects($this->once())
+            ->method("sendMessage")
+            ->with($this->equalTo("bob@builders.com"), $this->equalTo("I am a test message to Bob the Builder."))
             ->willReturn(true);
 
         $user->setMailer($mock);
