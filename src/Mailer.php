@@ -9,8 +9,12 @@ class Mailer
      * @param string $message
      * @return bool
      */
-    public function sendMessage(string $email, string $message): bool
+    public function sendMessage($email, $message): bool
     {
+        if (empty($email)) {
+            throw new Exception;
+        }
+
         sleep(3);
 
         echo "send '$message' to '$email'";

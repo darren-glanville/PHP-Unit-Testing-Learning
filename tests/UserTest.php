@@ -37,4 +37,19 @@ class UserTest extends TestCase
 
         $this->assertTrue($user->notify("I am a test message to Bob the Builder."));
     }
+
+    public function testWithNoEmail()
+    {
+        $user = new User();
+
+        $mock_mailer = $this->getMockBuilder(Mailer::class)
+            ->onlyMethods([])
+            ->getMock();
+
+        $user->setMailer($mock_mailer);
+
+        $this->expectException(Exception::class);
+
+        $user->notify("I am a test message to Bob the Builder.");
+    }
 }
