@@ -8,6 +8,8 @@ class Article
     {
         $slug = preg_replace('/\s+/', "_", trim($this->title));
 
+        $slug = preg_replace('/[^\w]+/', '', $slug);
+
         return $slug;
     }
 }
